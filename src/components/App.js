@@ -1,23 +1,26 @@
-import React, { Component } from 'react';
-import Welcome from './Welcome';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 import logo from '../images/logo.svg';
 import '../css/App.css';
+import MoviesList from './MoviesList';
 
-class App extends Component {
-	render() {
-		return (
-			<div className="App">
-				<header className="App-header">
+const Test = ({ match }) => <h1>{match.params.pageID}</h1>;
+
+const App = () => (
+	<Router>
+		<div className="App">
+			<header className="App-header">
+				<Link to="/">
 					<img src={logo} className="App-logo" alt="logo" />
-					<Welcome text="Dude" />
-				</header>
-				<p className="App-intro">
-					To get started, edit <code>src/App.js</code> and save to reload.
-				</p>
-			</div>
-		);
-	}
-}
+				</Link>
+			</header>
+			<Switch>
+				<Route exact path="/" component={MoviesList} />
+				<Route path="/:pageID" component={Test} />
+			</Switch>
+		</div>
+	</Router>
+);
 
 export default App;
